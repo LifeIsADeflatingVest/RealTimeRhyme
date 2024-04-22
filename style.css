@@ -22,10 +22,16 @@ textarea {
   box-sizing:border-box;
 }
 
-#last-word {
+.wordDisplay {
 	font-size:22px;
 	font-weight:bold;
+}
+
+#last-word {
 	color: greenyellow;
+}
+#last-word-random {
+	color: red;
 }
 
 @media (min-width: 600px) {

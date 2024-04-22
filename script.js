@@ -1,5 +1,6 @@
 const textArea = document.getElementById('text-area');
 const lastWord = document.getElementById('last-word');
+const lastWordRand =  document.getElementById('last-word-random');
 
 let previousValue = "";
 let timeoutId = null; // Variable to store timeout ID
@@ -31,6 +32,7 @@ function updateLastWord() {
 
 	RiTa.rhymes(lastWordWithoutPunctuation).then(function(rhymesArray){
 		lastWord.textContent = randFromArr(rhymesArray);
+		lastWordRand.textContent = RiTa.randomWord({ pos: "nn"});
 	});
 }
 
