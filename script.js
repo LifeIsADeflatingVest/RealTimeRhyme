@@ -41,7 +41,7 @@ function updateLastWord() {
 		for (let i=0;i<rhymesArray.length;i++) {
 			lastWord.innerHTML += rhymesArray[i]+"<br>";
 		}
-		RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5 }).then(function(alliterationsArray){
+		RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5, pos:"a" }).then(function(alliterationsArray){
 			for (let i=0;i<alliterationsArray.length;i++) {
 				lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
 			}
