@@ -33,6 +33,9 @@ textarea {
 #last-word-random {
 	color: red;
 }
+#last-word-alliteration {
+	color: cyan;
+}
 
 @media (min-width: 600px) {
   .container {

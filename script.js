@@ -1,6 +1,7 @@
 const textArea = document.getElementById('text-area');
 const lastWord = document.getElementById('last-word');
 const lastWordRand =  document.getElementById('last-word-random');
+const lastWordAllit =  document.getElementById('last-word-alliteration');
 
 let previousValue = "";
 let timeoutId = null; // Variable to store timeout ID
@@ -20,6 +21,7 @@ textArea.addEventListener('keyup', (event) => {
   } else {
     // Clear the last word if key is not space or punctuation
     lastWord.innerHTML = "";
+	lastWordAllit.innerHTML = "";
   }
 });
 
@@ -27,6 +29,7 @@ function updateLastWord() {
 	const currentWords = textArea.value.trim().split(' ');
 	const lastWordStr = currentWords[currentWords.length - 1] || '';
 	lastWord.innerHTML = "";
+	lastWordAllit.innerHTML = "";
   
   // Remove punctuation from the last word
 	const lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); 
@@ -38,7 +41,12 @@ function updateLastWord() {
 		for (let i=0;i<rhymesArray.length;i++) {
 			lastWord.innerHTML += rhymesArray[i]+"<br>";
 		}
-		lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "nn"});
+		RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5 }).then(function(alliterationsArray){
+			for (let i=0;i<alliterationsArray.length;i++) {
+				lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
+			}
+		})
+		lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "vb"});
 	});
 }
 
