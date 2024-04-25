@@ -19,20 +19,26 @@ textArea.addEventListener('keyup', (event) => {
     updateLastWord();
   } else {
     // Clear the last word if key is not space or punctuation
-    lastWord.textContent = "";
+    lastWord.innerHTML = "";
   }
 });
 
 function updateLastWord() {
 	const currentWords = textArea.value.trim().split(' ');
 	const lastWordStr = currentWords[currentWords.length - 1] || '';
-
+	lastWord.innerHTML = "";
+  
   // Remove punctuation from the last word
 	const lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); 
 
 	RiTa.rhymes(lastWordWithoutPunctuation).then(function(rhymesArray){
-		lastWord.textContent = randFromArr(rhymesArray);
-		lastWordRand.textContent = RiTa.randomWord({ pos: "nn"});
+		if (rhymesArray.length > 6) {
+			rhymesArray.length = 6;
+		}
+		for (let i=0;i<rhymesArray.length;i++) {
+			lastWord.innerHTML += rhymesArray[i]+"<br>";
+		}
+		lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "nn"});
 	});
 }
 
