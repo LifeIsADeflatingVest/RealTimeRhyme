@@ -99,9 +99,19 @@ function copyElements(origEl) {
 		copiedElement.id = "copy"+elementCnt;
 		theFlow.appendChild(copiedElement);
 		elementCnt++;
+		//
+		var textCounts = {};
+		$('#flow p').each(function() {
+			var text = $(this).text().trim();
+			textCounts[text] = (textCounts[text] || 0) + 1;
+			if (textCounts[text] > 1) {
+				$(this).css('display', 'none');
+			}
+		});
+		//
 	}
 	theFlow.scrollTop = theFlow.scrollHeight;
-	if ($('#flow').prop('scrollHeight') > 2000) {
+	if ($('#flow').prop('scrollHeight') > 3000) {
 		$("#flow").html("");
 		lastWordSyn.innerHTML = "";
 		lastWordStress.innerHTML = "";
