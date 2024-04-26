@@ -88,6 +88,9 @@ button {
 #last-word-alliteration {
 	color: cyan;
 }
+#last-word-syn {
+	color:darkgoldenrod;
+}
 
 @media (min-width: 600px) {
   .container {

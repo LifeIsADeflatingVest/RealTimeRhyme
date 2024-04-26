@@ -3,6 +3,7 @@ const lastWord = document.getElementById('last-word');
 const lastWordRand =  document.getElementById('last-word-random');
 const lastWordAllit =  document.getElementById('last-word-alliteration');
 const lastWordStress = document.getElementById('last-word-stress');
+const lastWordSyn = document.getElementById("last-word-syn");
 const theFlow = document.getElementById("flow");
 let lastWordWithoutPunctuation = "";
 
@@ -30,7 +31,10 @@ document.getElementById("stressButton").addEventListener("click", function(){
 	
 	//metering patterns
 	if (RiTa.isNoun(lastWordWithoutPunctuation)) {
-		datamuse(lastWordWithoutPunctuation).then(function(res){
+		datamuse(lastWordWithoutPunctuation, false).then(function(res){
+			if (res.length > 10) {
+				res.length = 10;
+			}
 			for (let i=0;i<res.length;i++) {
 				if (RiTa.stresses(res[i].word)==pattern) {
 					lastWordStress.innerHTML += res[i].word + "<br>";
@@ -39,10 +43,21 @@ document.getElementById("stressButton").addEventListener("click", function(){
 			
 		});
 	}
-	else {
-		console.log("not a noun")
-	}
+});
+
+document.getElementById("synButton").addEventListener("click", function(){
+	lastWordSyn.innerHTML = "";
 	
+	//synonyms
+	datamuse(lastWordWithoutPunctuation, true).then(function(res){
+		if (res.length > 10) {
+			res.length = 10;
+		}
+		for (let i=0;i<res.length;i++) {
+			lastWordSyn.innerHTML += res[i].word + "<br>";
+		}
+	});
+
 });
 
 function updateLastWord() {
@@ -87,9 +102,15 @@ function copyElements(origEl) {
 	}
 }
 
-function datamuse(word) {
+function datamuse(word, synonym) {
+	if (synonym) {
+		url = "https://api.datamuse.com/words?ml=";
+	}
+	else {
+		url = 'https://api.datamuse.com/words?rel_jjb=';
+	}
     return new Promise(function(resolve, reject) {
-        $.get('https://api.datamuse.com/words?rel_jjb='+word)
+        $.get(url+word)
             .done(data => resolve(data))
             .fail(error => reject(error));
     });
