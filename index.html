@@ -9,13 +9,15 @@
 <body>
     <div class="container">
 	<h2>Real Time Rhyme</h2>
-	<p>Start typing; a random rhyme for the last typed word will appear below.</p>
         <textarea id="text-area" rows="6"></textarea>
+		<div id="stressPatterns"><input id="thePattern"><button id="stressButton">Go</button></div>
+		<p class="wordDisplay" id="last-word-stress"></p>
         <p class="wordDisplay" id="last-word"></p>
 		<p class="wordDisplay" id="last-word-alliteration"></p>
 		<p class="wordDisplay" id="last-word-random"></p>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rita/3.1.0/rita.min.js" integrity="sha512-v9hhCveg/k596dShOiEZgU7PgBJPDBt0zQQ6qcsFJFPIic4PCRStKpmHB6LFKLZcSCRDimtNKuN+BlPXNxxxyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
     <script src="script.js"></script>
 </body>
 </html>

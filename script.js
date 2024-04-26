@@ -2,6 +2,8 @@ const textArea = document.getElementById('text-area');
 const lastWord = document.getElementById('last-word');
 const lastWordRand =  document.getElementById('last-word-random');
 const lastWordAllit =  document.getElementById('last-word-alliteration');
+const lastWordStress = document.getElementById('last-word-stress');
+let lastWordWithoutPunctuation = "";
 
 let previousValue = "";
 let timeoutId = null; // Variable to store timeout ID
@@ -25,15 +27,40 @@ textArea.addEventListener('keyup', (event) => {
   }
 });
 
+document.getElementById("stressButton").addEventListener("click", function(){
+	lastWordStress.innerHTML = "";
+	let pattern = document.getElementById("thePattern").value;
+	
+	//metering patterns
+	if (RiTa.isNoun(lastWordWithoutPunctuation)) {
+		datamuse(lastWordWithoutPunctuation).then(function(res){
+			for (let i=0;i<res.length;i++) {
+				if (RiTa.stresses(res[i].word)==pattern) {
+					lastWordStress.innerHTML += res[i].word + "<br>";
+				}
+			}
+			
+		});
+	}
+	else {
+		console.log("not a noun")
+	}
+	
+});
+
 function updateLastWord() {
 	const currentWords = textArea.value.trim().split(' ');
 	const lastWordStr = currentWords[currentWords.length - 1] || '';
 	lastWord.innerHTML = "";
 	lastWordAllit.innerHTML = "";
   
-  // Remove punctuation from the last word
-	const lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); 
+	// Remove punctuation from the last word
+	lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); 
 
+	// random noun and verb
+	lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "vb"});
+	
+	//rhymes
 	RiTa.rhymes(lastWordWithoutPunctuation).then(function(rhymesArray){
 		if (rhymesArray.length > 6) {
 			rhymesArray.length = 6;
@@ -41,13 +68,22 @@ function updateLastWord() {
 		for (let i=0;i<rhymesArray.length;i++) {
 			lastWord.innerHTML += rhymesArray[i]+"<br>";
 		}
-		RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5, pos:"a" }).then(function(alliterationsArray){
-			for (let i=0;i<alliterationsArray.length;i++) {
-				lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
-			}
-		})
-		lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "vb"});
 	});
+	
+	//alliteration
+	RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5, pos:"a" }).then(function(alliterationsArray){
+		for (let i=0;i<alliterationsArray.length;i++) {
+			lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
+		}
+	})
+}
+
+function datamuse(word) {
+    return new Promise(function(resolve, reject) {
+        $.get('https://api.datamuse.com/words?rel_jjb='+word)
+            .done(data => resolve(data))
+            .fail(error => reject(error));
+    });
 }
 
 function randFromArr(arr) {
