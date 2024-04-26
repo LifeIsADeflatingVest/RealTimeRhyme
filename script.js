@@ -3,6 +3,7 @@ const lastWord = document.getElementById('last-word');
 const lastWordRand =  document.getElementById('last-word-random');
 const lastWordAllit =  document.getElementById('last-word-alliteration');
 const lastWordStress = document.getElementById('last-word-stress');
+const theFlow = document.getElementById("flow");
 let lastWordWithoutPunctuation = "";
 
 let previousValue = "";
@@ -20,10 +21,6 @@ textArea.addEventListener('keyup', (event) => {
   // Check if user stopped typing or used punctuation
   if (!event.key || event.key.match(/^[^a-zA-Z]+$/)) {
     updateLastWord();
-  } else {
-    // Clear the last word if key is not space or punctuation
-    lastWord.innerHTML = "";
-	lastWordAllit.innerHTML = "";
   }
 });
 
@@ -49,13 +46,14 @@ document.getElementById("stressButton").addEventListener("click", function(){
 });
 
 function updateLastWord() {
+	copyElements(lastWord);
+	copyElements(lastWordAllit);
+		
 	const currentWords = textArea.value.trim().split(' ');
 	const lastWordStr = currentWords[currentWords.length - 1] || '';
 	lastWord.innerHTML = "";
 	lastWordAllit.innerHTML = "";
-  
-	// Remove punctuation from the last word
-	lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); 
+	lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); // Remove punctuation from the last word
 
 	// random noun and verb
 	lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "vb"});
@@ -76,6 +74,17 @@ function updateLastWord() {
 			lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
 		}
 	})
+}
+
+function copyElements(origEl) {
+	if (origEl.innerHTML != "") {
+		const copiedElement = origEl.cloneNode(true);
+		theFlow.appendChild(copiedElement);
+	}
+	theFlow.scrollTop = theFlow.scrollHeight;
+	if ($('#flow').prop('scrollHeight') > 2000) {
+		$("#flow").html("");
+	}
 }
 
 function datamuse(word) {
