@@ -99,6 +99,8 @@ function copyElements(origEl) {
 	theFlow.scrollTop = theFlow.scrollHeight;
 	if ($('#flow').prop('scrollHeight') > 2000) {
 		$("#flow").html("");
+		lastWordSyn.innerHTML = "";
+		lastWordStress.innerHTML = "";
 	}
 }
 
