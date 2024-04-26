@@ -5,6 +5,7 @@ const lastWordAllit =  document.getElementById('last-word-alliteration');
 const lastWordStress = document.getElementById('last-word-stress');
 const lastWordSyn = document.getElementById("last-word-syn");
 const theFlow = document.getElementById("flow");
+const theDef = document.getElementById("defsP");
 let lastWordWithoutPunctuation = "";
 let elementCnt = 0;
 
@@ -31,7 +32,7 @@ document.getElementById("stressButton").addEventListener("click", function(){
 	let pattern = document.getElementById("thePattern").value;
 	
 	//metering patterns
-	datamuse(lastWordWithoutPunctuation, false).then(function(res){
+	datamuse(lastWordWithoutPunctuation, false, false).then(function(res){
 		for (let i=0;i<res.length;i++) {
 			if (RiTa.stresses(res[i].word)==pattern) {
 				lastWordStress.innerHTML += res[i].word + ", ";
@@ -41,11 +42,27 @@ document.getElementById("stressButton").addEventListener("click", function(){
 	});
 });
 
+document.getElementById("defsButton").addEventListener("click", function(){
+	let pattern = document.getElementById("thePattern").value;
+	
+	//definitions
+	datamuse(pattern, false, true).then(function(res){
+		if (res.length>0) {
+			theDef.innerHTML = res[0].defs[0] + "<br>" + res[0].defs[1] + "<br>" + res[0].defs[2];
+			$("#defsP").fadeIn(500, function(){
+				setTimeout(function(){
+					$("#defsP").fadeOut(1000);
+				}, 3000);
+			});
+		}
+	});
+});
+
 document.getElementById("synButton").addEventListener("click", function(){
 	lastWordSyn.innerHTML = "";
 	
 	//synonyms
-	datamuse(lastWordWithoutPunctuation, true).then(function(res){
+	datamuse(lastWordWithoutPunctuation, true, false).then(function(res){
 		for (let i=0;i<res.length;i++) {
 			lastWordSyn.innerHTML += res[i].word + ", ";
 		}
@@ -86,7 +103,7 @@ function updateLastWord() {
 }
 
 function copyElements(origEl) {
-	$("#flowHeight").html($('#flow').prop('scrollHeight'));
+	//$("#flowHeight").html(3000 - $('#flow').prop('scrollHeight'));
 	if (origEl.innerHTML != "") {
 		const copiedElement = origEl.cloneNode(true);
 		copiedElement.id = "copy"+elementCnt;
@@ -104,13 +121,18 @@ function copyElements(origEl) {
 		//
 	}
 	theFlow.scrollTop = theFlow.scrollHeight;
+	/*
 	if ($('#flow').prop('scrollHeight') > 3000) {
 		$("#flow").html("");
 	}
+	*/
 }
 
-function datamuse(word, synonym) {
-	if (synonym) {
+function datamuse(word, synonym = false, defs = false) {
+	if (defs) {
+		url = "https://api.datamuse.com/words?sp="+word+"&md=d";
+	}
+	else if (synonym) {
 		url = "https://api.datamuse.com/words?ml="+word+"&max=10";
 	}
 	else {

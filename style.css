@@ -95,6 +95,16 @@ button {
 #last-word-syn, .synned{
 	color:darkgoldenrod;
 }
+#defsP {
+	display:none;
+	font-size:14px;
+}
+#flowHeight {
+	position:absolute;
+	left:0;
+	top:10px;
+	width:20%;
+}
 
 @media (min-width: 600px) {
   .container {
