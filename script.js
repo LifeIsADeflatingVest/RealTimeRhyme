@@ -31,19 +31,14 @@ document.getElementById("stressButton").addEventListener("click", function(){
 	let pattern = document.getElementById("thePattern").value;
 	
 	//metering patterns
-	if (RiTa.isNoun(lastWordWithoutPunctuation)) {
-		datamuse(lastWordWithoutPunctuation, false).then(function(res){
-			if (res.length > 10) {
-				res.length = 10;
+	datamuse(lastWordWithoutPunctuation, false).then(function(res){
+		for (let i=0;i<res.length;i++) {
+			if (RiTa.stresses(res[i].word)==pattern) {
+				lastWordStress.innerHTML += res[i].word + ", ";
 			}
-			for (let i=0;i<res.length;i++) {
-				if (RiTa.stresses(res[i].word)==pattern) {
-					lastWordStress.innerHTML += res[i].word + "<br>";
-				}
-			}
-			
-		});
-	}
+		}
+		copyElements(lastWordStress);		
+	});
 });
 
 document.getElementById("synButton").addEventListener("click", function(){
@@ -51,12 +46,10 @@ document.getElementById("synButton").addEventListener("click", function(){
 	
 	//synonyms
 	datamuse(lastWordWithoutPunctuation, true).then(function(res){
-		if (res.length > 10) {
-			res.length = 10;
-		}
 		for (let i=0;i<res.length;i++) {
-			lastWordSyn.innerHTML += res[i].word + "<br>";
+			lastWordSyn.innerHTML += res[i].word + ", ";
 		}
+		copyElements(lastWordSyn);
 	});
 
 });
@@ -71,8 +64,8 @@ function updateLastWord() {
 	lastWordAllit.innerHTML = "";
 	lastWordWithoutPunctuation = lastWordStr.replace(/[^a-zA-Z]+/g, ""); // Remove punctuation from the last word
 
-	// random noun and verb
-	lastWordRand.innerHTML = RiTa.randomWord({ pos: "nn"}) + "<br>" + RiTa.randomWord({ pos: "vb"});
+	// random adjective, noun, and verb
+	lastWordRand.innerHTML = RiTa.randomWord({pos: "jj"}) + " " + RiTa.randomWord({ pos: "nns"}) + " " + RiTa.randomWord({ pos: "vb"});
 	
 	//rhymes
 	RiTa.rhymes(lastWordWithoutPunctuation).then(function(rhymesArray){
@@ -80,14 +73,14 @@ function updateLastWord() {
 			rhymesArray.length = 6;
 		}
 		for (let i=0;i<rhymesArray.length;i++) {
-			lastWord.innerHTML += rhymesArray[i]+"<br>";
+			lastWord.innerHTML += rhymesArray[i]+", ";
 		}
 	});
 	
 	//alliteration
 	RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5, pos:"a" }).then(function(alliterationsArray){
 		for (let i=0;i<alliterationsArray.length;i++) {
-			lastWordAllit.innerHTML += alliterationsArray[i]+"<br>";
+			lastWordAllit.innerHTML += alliterationsArray[i]+", ";
 		}
 	})
 }
@@ -113,20 +106,18 @@ function copyElements(origEl) {
 	theFlow.scrollTop = theFlow.scrollHeight;
 	if ($('#flow').prop('scrollHeight') > 3000) {
 		$("#flow").html("");
-		lastWordSyn.innerHTML = "";
-		lastWordStress.innerHTML = "";
 	}
 }
 
 function datamuse(word, synonym) {
 	if (synonym) {
-		url = "https://api.datamuse.com/words?ml=";
+		url = "https://api.datamuse.com/words?ml="+word+"&max=10";
 	}
 	else {
-		url = 'https://api.datamuse.com/words?rel_jjb=';
+		url = 'https://api.datamuse.com/words?rel_trg='+word;
 	}
     return new Promise(function(resolve, reject) {
-        $.get(url+word)
+        $.get(url)
             .done(data => resolve(data))
             .fail(error => reject(error));
     });
@@ -135,4 +126,13 @@ function datamuse(word, synonym) {
 function randFromArr(arr) {
 	  const randomIndex = Math.floor(Math.random() * arr.length);
 	  return arr[randomIndex];
+}
+
+function clearFields() {
+	lastWordSyn.innerHTML = "";
+	lastWordStress.innerHTML = "";
+	lastWordAllit.innerHTML = "";
+	lastWordRand.innerHTML = "";
+	lastWord.innerHTML = "";
+	$("#flow").html("");
 }

@@ -62,8 +62,10 @@ button {
 }
 
 .wordDisplay {
-	font-size:22px;
+	font-size:16px;
 	font-weight:bold;
+	width: 90%;
+    margin: 0 auto;
 }
 
 #flow {
@@ -76,9 +78,9 @@ button {
 	padding:10px;
 }
 #flow p {
-	font-size: 18px;
+	font-size: 14px;
 }
-#last-word-stress {
+#last-word-stress, .stressed {
 	color:deeppink;
 }
 #last-word, .rhymed {
@@ -90,7 +92,7 @@ button {
 #last-word-alliteration, .allitered {
 	color: cyan;
 }
-#last-word-syn {
+#last-word-syn, .synned{
 	color:darkgoldenrod;
 }
 
@@ -100,8 +102,8 @@ button {
   }
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 50%;
-  }
+@media (max-width: 1200px) {
+	#flow {
+		width: 20%
+	}
 }
