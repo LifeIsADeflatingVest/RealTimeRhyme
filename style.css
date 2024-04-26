@@ -79,13 +79,13 @@ button {
 #last-word-stress {
 	color:deeppink;
 }
-#last-word {
+#last-word, .rhymed {
 	color: greenyellow;
 }
 #last-word-random {
 	color: red;
 }
-#last-word-alliteration {
+#last-word-alliteration, .allitered {
 	color: cyan;
 }
 #last-word-syn {

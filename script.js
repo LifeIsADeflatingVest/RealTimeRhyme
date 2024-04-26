@@ -6,6 +6,7 @@ const lastWordStress = document.getElementById('last-word-stress');
 const lastWordSyn = document.getElementById("last-word-syn");
 const theFlow = document.getElementById("flow");
 let lastWordWithoutPunctuation = "";
+let elementCnt = 0;
 
 let previousValue = "";
 let timeoutId = null; // Variable to store timeout ID
@@ -92,9 +93,12 @@ function updateLastWord() {
 }
 
 function copyElements(origEl) {
+	$("#flowHeight").html($('#flow').prop('scrollHeight'));
 	if (origEl.innerHTML != "") {
 		const copiedElement = origEl.cloneNode(true);
+		copiedElement.id = "copy"+elementCnt;
 		theFlow.appendChild(copiedElement);
+		elementCnt++;
 	}
 	theFlow.scrollTop = theFlow.scrollHeight;
 	if ($('#flow').prop('scrollHeight') > 2000) {

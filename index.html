@@ -9,6 +9,7 @@
 <body>
     <div class="container">
 	<div id="flow"></div>
+	<div id="flowHeight"></div>
 	<h2>Real Time Rhyme</h2>
         <textarea id="text-area" rows="6"></textarea>
 		<div id="stressPatterns"><input id="thePattern"><br>
@@ -16,8 +17,8 @@
 		</div>
 		<p class="wordDisplay" id="last-word-syn"></p>
 		<p class="wordDisplay" id="last-word-stress"></p>
-        <p class="wordDisplay" id="last-word"></p>
-		<p class="wordDisplay" id="last-word-alliteration"></p>
+        <p class="wordDisplay rhymed" id="last-word"></p>
+		<p class="wordDisplay allitered" id="last-word-alliteration"></p>
 		<p class="wordDisplay" id="last-word-random"></p>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rita/3.1.0/rita.min.js" integrity="sha512-v9hhCveg/k596dShOiEZgU7PgBJPDBt0zQQ6qcsFJFPIic4PCRStKpmHB6LFKLZcSCRDimtNKuN+BlPXNxxxyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
