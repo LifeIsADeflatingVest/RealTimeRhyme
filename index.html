@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Time Rhyme</title>
+    <title>Poetry Assistant</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-	<div id="flow"></div>
-	<div id="flowHeight"></div>
-	<h2>Real Time Rhyme</h2>
-        <textarea id="text-area" rows="6"></textarea>
-		<div id="stressPatterns"><input id="thePattern"><br>
-		<p id="defsP"></p>
-		<button onclick="clearFields();" style="background-color:crimson">Clear</button><button id="stressButton">Stresses</button><button id="synButton">Synonyms</button><button id="defsButton">Definitions</button>
+		<div id="flow"></div>
+		<div id="showHelp">?</div>
+		<div id="metaInfo">
+			<h2>Poetry Assistant</h2>
+			<p>Start typing below. Rhymes appear in <span style="color:greenyellow;font-weight:bold">green</span>, alliterations in <span style="color:cyan;font-weight:bold">cyan</span>, a random sentence in <span style="color:red;font-weight:bold">red</span>. As you continue typing and generating new content, previous results populate the <span style="border:2px solid greenyellow;border-radius:6px;padding:2px 5px">column</span> on the left.</p>
+			<p> Press <span class="helpHint">Synonyms</span> to get synonyms of the last typed word in <span style="color:darkgoldenrod;font-weight:bold">deep golden</span>. Enter a stress pattern (e.g. 1/0 or 1/0/0) in the input box and press <span class="helpHint">Stresses</span> to get a word with that stress pattern that is triggered (i.e. relevant) by the last types word; in<span style="color:deeppink;font-weight:bold"> deep pink</span>. Enter a word in the input bo and press <span class="helpHint">Definitions</span> to get the first three most relevant definitions of the entered word; text disappears automatically. Pressing <span class="helpHint" style="background-color:crimson">Clear</span> deletes all output.</p>
+			<p>This information will be hidden once you start typing. Press <span class="helpHint">?</span> on the top left to show it again.</p>
+		</div>
+        <textarea placeholder="start typing" id="text-area" rows="6"></textarea>
+		<div id="stressPatterns">
+			<input placeholder="enter a pattern or a word to define" id="thePattern"><br>
+			<p id="defsP"></p>
+			<button onclick="clearFields();" style="background-color:crimson">Clear</button><button id="synButton">Synonyms</button><button id="stressButton">Stresses</button><button id="defsButton">Definitions</button>
 		</div>
 		<p class="wordDisplay synned" id="last-word-syn"></p>
 		<p class="wordDisplay stressed" id="last-word-stress"></p>

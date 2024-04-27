@@ -13,6 +13,11 @@ let previousValue = "";
 let timeoutId = null; // Variable to store timeout ID
 
 textArea.addEventListener('keyup', (event) => {
+  //hide metaInfo if visible	
+  	if ($("#metaInfo").is(":visible")){
+		$("#metaInfo").fadeOut(200);
+	}
+	
   // Clear any previous timeout
   clearTimeout(timeoutId);
 
@@ -68,7 +73,15 @@ document.getElementById("synButton").addEventListener("click", function(){
 		}
 		copyElements(lastWordSyn);
 	});
+});
 
+$("#showHelp") .click(function(){
+	if (!$("#metaInfo").is(":visible")){
+		$("#metaInfo").fadeIn(500);
+	}
+	else {
+		$("#metaInfo").fadeOut(250);
+	}
 });
 
 function updateLastWord() {
@@ -103,13 +116,13 @@ function updateLastWord() {
 }
 
 function copyElements(origEl) {
-	//$("#flowHeight").html(3000 - $('#flow').prop('scrollHeight'));
 	if (origEl.innerHTML != "") {
 		const copiedElement = origEl.cloneNode(true);
 		copiedElement.id = "copy"+elementCnt;
 		theFlow.appendChild(copiedElement);
 		elementCnt++;
-		//
+		
+		//avoid duplicates
 		var textCounts = {};
 		$('#flow p').each(function() {
 			var text = $(this).text().trim();
@@ -118,7 +131,6 @@ function copyElements(origEl) {
 				$(this).css('display', 'none');
 			}
 		});
-		//
 	}
 	theFlow.scrollTop = theFlow.scrollHeight;
 	/*
