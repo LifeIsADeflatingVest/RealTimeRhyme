@@ -99,6 +99,7 @@ function updateLastWord() {
 	
 	//rhymes
 	RiTa.rhymes(lastWordWithoutPunctuation).then(function(rhymesArray){
+		shuffleArray(rhymesArray)
 		if (rhymesArray.length > 6) {
 			rhymesArray.length = 6;
 		}
@@ -109,6 +110,7 @@ function updateLastWord() {
 	
 	//alliteration
 	RiTa.alliterations(lastWordWithoutPunctuation, { maxLength: 4, limit:5, pos:"a" }).then(function(alliterationsArray){
+		shuffleArray(alliterationsArray)
 		for (let i=0;i<alliterationsArray.length;i++) {
 			lastWordAllit.innerHTML += alliterationsArray[i]+", ";
 		}
@@ -169,4 +171,22 @@ function clearFields() {
 	lastWordRand.innerHTML = "";
 	lastWord.innerHTML = "";
 	$("#flow").html("");
+}
+
+function shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
 }
