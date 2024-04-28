@@ -31,7 +31,7 @@ textarea {
 	font-weight: bold;
 	padding: 10px;
 	border-radius: 12px;
-	width:80%;
+	width:100%;
 }
 
 input{
@@ -57,9 +57,9 @@ button {
 
 .container {
   width: 85%;
-  margin: 0 20%;
+  margin: 0 auto;
   text-align:center;
-  padding: 20px;
+  padding: 15px;
   box-sizing:border-box;
 }
 .helpHint {
@@ -80,19 +80,17 @@ button {
 	display:none;
 }
 #flow {
-	position:absolute;
-	width:25%;
-	top:50%;
-	transform: translateY(-50%);
-	left:0;
-	height: 80%;
-	overflow: auto;
 	padding:10px;
 	border: 2px solid greenyellow;
 	border-radius: 14px;
+	max-height: 200px;
+	min-height:50px;
+	overflow:auto;
 }
 #flow p {
 	font-size: 14px;
+	text-align: left;
+    margin-bottom: 1em;
 }
 #last-word-stress, .stressed {
 	color:deeppink;
@@ -132,17 +130,12 @@ button {
   #metaInfo {
 	  display: block;
   }
-  #flow {
-	  width: 15%;
-  }
 }
 
 @media (max-width: 1200px) {
-	#flow {
-		width: 20%
-	}
 	.container {
 		padding: 30px;
+		width: 65%;
 	}
 	#metaInfo p {
 		text-align:justify;

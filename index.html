@@ -8,11 +8,10 @@
 </head>
 <body>
     <div class="container">
-		<div id="flow"></div>
 		<div id="showHelp">?</div>
 		<div id="metaInfo">
 			<h2>Poetry Assistant</h2>
-			<p>Start typing below. Rhymes appear in <span style="color:greenyellow;font-weight:bold">green</span>, alliterations in <span style="color:cyan;font-weight:bold">cyan</span>, a random sentence in <span style="color:red;font-weight:bold">red</span>. As you continue typing and generating new content, previous results populate the <span style="border:2px solid greenyellow;border-radius:6px;padding:2px 5px">column</span> on the left.</p>
+			<p>Start typing below. Rhymes appear in <span style="color:greenyellow;font-weight:bold">green</span>, alliterations in <span style="color:cyan;font-weight:bold">cyan</span>, a random sentence in <span style="color:red;font-weight:bold">red</span>. As you continue typing and generating new content, previous results populate the <span style="border:2px solid greenyellow;border-radius:6px;padding:2px 5px">archive area</span> at the bottom.</p>
 			<p> Press <span class="helpHint">Synonyms</span> to get synonyms of the last typed word in <span style="color:darkgoldenrod;font-weight:bold">deep golden</span>. Enter a stress pattern (e.g. 1/0 or 1/0/0) in the input box and press <span class="helpHint">Stresses</span> to get a word with that stress pattern that is triggered (i.e. relevant) by the last types word; in<span style="color:deeppink;font-weight:bold"> deep pink</span>. Enter a word in the input bo and press <span class="helpHint">Definitions</span> to get the first three most relevant definitions of the entered word; text disappears automatically. Pressing <span class="helpHint" style="background-color:crimson">Clear</span> deletes all output.</p>
 			<p>This information will be hidden once you start typing. Press <span class="helpHint">?</span> on the top left to show it again.</p>
 		</div>
@@ -27,6 +26,7 @@
         <p class="wordDisplay rhymed" id="last-word"></p>
 		<p class="wordDisplay allitered" id="last-word-alliteration"></p>
 		<p class="wordDisplay" id="last-word-random"></p>
+		<div id="flow"></div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/rita/3.1.0/rita.min.js" integrity="sha512-v9hhCveg/k596dShOiEZgU7PgBJPDBt0zQQ6qcsFJFPIic4PCRStKpmHB6LFKLZcSCRDimtNKuN+BlPXNxxxyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
