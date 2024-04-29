@@ -1,1 +1,1 @@
-# RealTimeRhyme
+# RealTimeRhyme (or Poetry Assistant as I refer to it on the blog) is a program I put together for personal use (= it's sloppy, aesthetically Frnkenstein-like) to help with synonyms, rhymes, alliteration, stress, and definitions. Feel free to try it, but as I said, it's a bit sloppy.
